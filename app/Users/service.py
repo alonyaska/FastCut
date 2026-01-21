@@ -24,7 +24,8 @@ class UserService:
         user = await authenticate_user(email=user_data.email, password=user_data.password)
         if not user:
             raise UserNotRegistered()
-        access_token = create_access_token({"sub": str(user.id)})
+        access_token = create_access_token({"sub": str(user.id),
+                                            "email": str(user.email)})
         response.set_cookie("user_url_token", access_token, httponly=True, secure=False, samesite="lax")
         return access_token
 

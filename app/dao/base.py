@@ -1,3 +1,4 @@
+
 from sqlalchemy import select, insert
 
 from app.database import async_session_maker
@@ -24,3 +25,9 @@ class BaseDao:
             await  session.commit()
 
 
+    @classmethod
+    async  def find_by_email(cls, model_email:str):
+        async  with async_session_maker() as session:
+            query = select(cls.model).filter_by(email=model_email)
+            result = await  session.execute(query)
+            return result.scalar_one_or_none()
