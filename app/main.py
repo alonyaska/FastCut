@@ -1,6 +1,8 @@
 from  fastapi import  FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from  app.Users.router import router as auth_router
+from  app.URLS.router import router as link_router
+from app.URLS.redirect import router as redirect_router
 
 
 
@@ -8,6 +10,8 @@ app = FastAPI()
 
 
 app.include_router(auth_router)
+app.include_router(link_router)
+app.include_router(redirect_router)
 
 
 

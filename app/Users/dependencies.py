@@ -10,7 +10,7 @@ from app.exceptions import UserNotLogin, TokenAbsentException, TokenIsExpireExce
 
 
 def get_token(request: Request):
-    token = request.cookies.get("user_inventory_token")
+    token = request.cookies.get("user_url_token")
     if not  token:
         raise  UserNotLogin()
     return token

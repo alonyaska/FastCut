@@ -15,3 +15,9 @@ async_session_maker = async_sessionmaker(
 
 class Base(DeclarativeBase):
     pass
+
+# app/database.py
+
+async def get_async_session():
+    async with async_session_maker() as session:
+        yield session  # Вот здесь должен отдаваться объект сессии!

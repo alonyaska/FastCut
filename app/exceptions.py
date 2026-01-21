@@ -38,4 +38,12 @@ class IncorrectTokenType(CutException):
     status_code = status.HTTP_403_FORBIDDEN
     detail = "Wrong format token"
 
+class NotLinkToday(CutException):
+    status_code = status.HTTP_418_IM_A_TEAPOT
+    detail = "Shortl url not created"
+
+class NotFoundLink(CutException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Url not found"
+
 
