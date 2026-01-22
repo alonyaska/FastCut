@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from  sqlalchemy.orm import  DeclarativeBase, sessionmaker
 from app.config import settings
-
+import redis.asyncio as redis
 
 
 engine = create_async_engine(settings.DATABASE_URL)
@@ -21,3 +21,13 @@ class Base(DeclarativeBase):
 async def get_async_session():
     async with async_session_maker() as session:
         yield session  # Вот здесь должен отдаваться объект сессии!
+
+
+
+
+async def get_redis():
+    client = redis.from_url("redis://localhost:6379", decode_responses=True)
+    try:
+        yield client
+    finally:
+        await client.close()

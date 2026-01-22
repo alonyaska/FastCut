@@ -8,8 +8,10 @@ from app.exceptions import NotLinkToday
 class LinkService:
 
     @classmethod
-    async def create_short_url(cls, url: str, user_id: int, session: AsyncSession):
-        short_code = generate_short_code()
+    async def create_short_url(cls,short_code:str , url: str, user_id: int, session: AsyncSession):
+
+        if not short_code:
+            short_code = generate_short_code()
 
         new_link = URLsModel(
             full_url=url,
@@ -24,7 +26,6 @@ class LinkService:
             return new_link
         except Exception:
             await session.rollback()
-            # Твой кастомный эксепшн (который 418, судя по всему)
             raise NotLinkToday
 
 

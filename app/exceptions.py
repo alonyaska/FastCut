@@ -39,8 +39,8 @@ class IncorrectTokenType(CutException):
     detail = "Wrong format token"
 
 class NotLinkToday(CutException):
-    status_code = status.HTTP_418_IM_A_TEAPOT
-    detail = "Shortl url not created"
+    status_code = status.HTTP_409_CONFLICT
+    detail = "Short key already used"
 
 class NotFoundLink(CutException):
     status_code = status.HTTP_404_NOT_FOUND

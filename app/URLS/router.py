@@ -1,9 +1,9 @@
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.URLS.service import LinkService
-from app.URLS.shemas import SLinkCreate, SLink
+from app.URLS.shemas import SLinkCreate
 
 from app.Users.models import UsersModel
 from app.Users.dependencies import get_current_user
@@ -17,9 +17,10 @@ router = APIRouter(
 
 
 
-@router.post("/shortURL", response_model=SLink)
+@router.post("/shortURL")
 async def shorten_url(
-    data: SLinkCreate, #
+    short_code:str = Query(None, description="Введите свой кастомный ключ"),
+    data: SLinkCreate = None, #
     user: UsersModel = Depends(get_current_user),
     session: AsyncSession = Depends(get_async_session)
 ):
@@ -27,8 +28,10 @@ async def shorten_url(
     new_link = await LinkService.create_short_url(
         url=str(data.url),
         user_id=user.id,
-        session=session
+        session=session,
+        short_code=short_code
     )
 
 
-    return new_link
+    return {"short_url": f"http://localhost:8000/{new_link.short_key}"}, new_link
+
