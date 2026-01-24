@@ -34,7 +34,7 @@ async def get_async_session():
 
 
 async def get_redis():
-    client = redis.from_url("redis://localhost:6379", decode_responses=True)
+    client = redis.from_url(f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}", decode_responses=True)
     try:
         yield client
     finally:

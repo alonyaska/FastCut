@@ -14,6 +14,10 @@ class Settings(BaseSettings):
     DB_NAME: str
     SECRET_KEY:str
     ALGORITHM:str
+    REDIS_HOST:str
+    REDIS_PORT:int
+    REDIRECTED_HOST:str
+    REDIRECTED_PORT:int
 
 
 

@@ -7,6 +7,7 @@ from app.URLS.shemas import SLinkCreate
 
 from app.Users.models import UsersModel
 from app.Users.dependencies import get_current_user
+from app.config import settings
 from app.database import get_async_session
 
 
@@ -33,5 +34,5 @@ async def shorten_url(
     )
 
 
-    return {"short_url": f"http://localhost:8000/{new_link.short_key}"}, new_link
+    return {"short_url": f"http://{settings.REDIRECTED_HOST}:{settings.REDIRECTED_PORT}/{new_link.short_key}"}, new_link
 
