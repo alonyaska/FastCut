@@ -1,10 +1,19 @@
+from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from  sqlalchemy.orm import  DeclarativeBase, sessionmaker
 from app.config import settings
 import redis.asyncio as redis
 
 
-engine = create_async_engine(settings.DATABASE_URL)
+if settings.MODE == "TEST":
+    DATABASE_URL = settings.TEST_DATABASE_URL
+    DATABASE_PARAMS = {"poolclass": NullPool}
+else:
+    DATABASE_URL = settings.DATABASE_URL
+    DATABASE_PARAMS = {}
+
+
+engine = create_async_engine(settings.DATABASE_URL, **DATABASE_PARAMS)
 
 
 async_session_maker = async_sessionmaker(
@@ -16,11 +25,10 @@ async_session_maker = async_sessionmaker(
 class Base(DeclarativeBase):
     pass
 
-# app/database.py
 
 async def get_async_session():
     async with async_session_maker() as session:
-        yield session  # Вот здесь должен отдаваться объект сессии!
+        yield session
 
 
 

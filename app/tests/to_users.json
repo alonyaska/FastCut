@@ -1,0 +1,10 @@
+[{
+  "email": "123@mail.com",
+  "hashed_password": "$2b$12$E0EY3WK1YKXkFA4tPQGXGu126PoqSa3wyvQ/yLPLdFOUenfS4xDRq"
+
+
+},
+  {
+    "email": "bolik@gmail.com",
+    "hashed_password": "1q2w3e4r"
+  }]
